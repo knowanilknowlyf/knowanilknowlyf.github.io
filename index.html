@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aadelle</title>
+
+    <!-- Bootstrap -->
+    		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+    <!-- google font -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+
+    <script src="js/vendor/modernizr.js"></script>
+
+        <script src= "js/instafeed.min.js"></script>
+         <script type="text/javascript">
+  var count = 1;              
+            var feed;
+            feed = new Instafeed({
+               target:'instafeed',
+    get: 'user',
+    userId: '1433051082',
+    clientId: 'c59027d08395496899973ad7ba45802e',
+    accessToken: '1433051082.c59027d.d577252660fe4142a3cbc02f946f4573',
+              resolution: 'standard_resolution',
+              template: '<a href="{{image}}" rel="lightbox"><img src="{{image}}" /><div class="likes">&hearts; {{likes}}</div></a>',
+              mock: true,
+			  limit:9,
+              after: function () {
+                    var images = $("#instafeed").find('a');
+                    $.each(images, function(index, image) {
+                      var delay = (index * 75) + 'ms';
+                      $(image).css('-webkit-animation-delay', delay);
+                      $(image).css('-moz-animation-delay', delay);
+                      $(image).css('-ms-animation-delay', delay);
+                      $(image).css('-o-animation-delay', delay);
+                      $(image).css('animation-delay', delay);
+                      $(image).addClass('animated fadeInUp pic-'+count++);
+                    });
+                  },
+              custom: {
+                images: [],
+                currentImage: 0,
+                showImage: function () {
+                  var result, image;
+                  image = this.options.custom.images[this.options.custom.currentImage];
+                  result = this._makeTemplate(this.options.template, {
+                    model: image,
+                    id: image.id,
+                    link: image.link,
+                    image: image.images[this.options.resolution].url,
+                    caption: this._getObjectProperty(image, 'caption.text'),
+                    likes: image.likes.count,
+                    comments: image.comments.count,
+                    location: this._getObjectProperty(image, 'location.name')
+                  });
+                  $("#instafeed").html(result);
+                }
+              },
+              success: function (data) {
+                this.options.custom.images = data.data; 
+                this.options.custom.showImage.call(this);
+              }
+            });
+            feed.run();
+
+            $(".next").click(function () {
+              var length, current;
+              current = feed.options.custom.currentImage;
+              length = feed.options.custom.images.length;
+              if (current < length - 1) {
+                feed.options.custom.currentImage++;
+                feed.options.custom.showImage.call(feed);
+              }
+            });
+
+            $(".prev").click(function () {
+              var length, current;
+              current = feed.options.custom.currentImage;
+              length = feed.options.custom.images.length;
+              if (current > 0) {
+                feed.options.custom.currentImage--
+                feed.options.custom.showImage.call(feed);
+              }
+            });
+  </script>
+  <script>
+  var userFeed1 = new Instafeed({
+     target:'instafeed1',
+    get: 'user',
+    userId: '1433051082',
+    clientId: 'c59027d08395496899973ad7ba45802e',
+    accessToken: '1433051082.c59027d.d577252660fe4142a3cbc02f946f4573',
+    resolution: 'standard_resolution',
+    sortBy: 'most-liked',
+    limit: 32,
+    links: "true",
+	template: '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="photo-box"><div class="image-wrap"><a href="{{link}}"><img src="{{image}}"></a><div class="likes">{{likes}} Likes</div></div><div class="description">{{caption}}<div class="date">{{model.date}}</div></div></div></div>'
+      
+  });
+  userFeed1.run();
+  
+      </script>
+         <script type="text/javascript">
+  var userFeed2 = new Instafeed({
+     target:'instafeed2',
+    get: 'user',
+    userId: '1433051082',
+    clientId: 'c59027d08395496899973ad7ba45802e',
+    accessToken: '1433051082.c59027d.d577252660fe4142a3cbc02f946f4573',
+    resolution: 'standard_resolution',
+    sortBy: 'most-commented',
+    limit: 32,
+    links: "true",
+	template: '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="photo-box"><div class="image-wrap"><a href="{{link}}"><img src="{{image}}"></a><div class="likes">{{likes}} Likes</div></div><div class="description">{{caption}}<div class="date">{{model.date}}</div></div></div></div>'
+      
+  });
+  userFeed2.run();
+  </script>
+  <script>
+  var userFeed3 = new Instafeed({
+     target:'instafeed3',
+    get: 'user',
+    userId: '1433051082',
+    clientId: 'c59027d08395496899973ad7ba45802e',
+    accessToken: '1433051082.c59027d.d577252660fe4142a3cbc02f946f4573',
+    resolution: 'standard_resolution',
+    sortBy: 'random',
+    limit: 32,
+    links: "true",
+	template: '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="photo-box"><div class="image-wrap"><a href="{{link}}"><img src="{{image}}"></a><div class="likes">{{likes}} Likes</div></div><div class="description">{{caption}}<div class="date">{{model.date}}</div></div></div></div>'
+      
+  });
+  userFeed3.run();
+  
+      </script>
+<script>
+  var userFeed4 = new Instafeed({
+     target:'instafeed4',
+    get: 'user',
+    userId: '1433051082',
+    clientId: 'c59027d08395496899973ad7ba45802e',
+    accessToken: '1433051082.c59027d.d577252660fe4142a3cbc02f946f4573',
+    resolution: 'standard_resolution',
+    sortBy: 'none',
+    limit: 32,
+    links: "true",
+	template: '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="photo-box"><div class="image-wrap"><a href="{{link}}"><img src="{{image}}"></a><div class="likes">{{likes}} Likes</div></div><div class="description">{{caption}}<div class="date">{{model.date}}</div></div></div></div>'
+      
+  });
+  userFeed4.run();
+  
+      </script>
+
+  </head>
+  <body>
+    <div id="st-container" class="st-container">
+        <div class="st-pusher">
+
+            <nav class="st-menu st-effect-1 site-navigation navbar-collapse collapse" id="menu-1" role="navigation">
+                <div class="nav-menu">
+                    <ul class="menu">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Portfolio</a></li>
+                        <!--<li class="has-child dropdown">
+                            <a href="portfolio.html" class="dropdown-toggle" data-toggle="dropdown">
+                                Portfolio<b class="caret fa fa-angle-down"></b>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Portfolio Page</a></li>
+                                <li><a href="#">Portfolio Single Page</a></li>
+                            </ul>
+                        </li>-->
+                        
+                        <li class="has-child dropdown"> <!-- this is first level of main menu -->
+                            <a href="blog.html"  class="dropdown-toggle" data-toggle="dropdown">
+                                Blog<b class="caret fa fa-angle-down"></b>
+                            </a>
+                            <!-- add sub menu below an anchor -->
+                            <ul class="sub-menu"> <!-- For second level -->
+                                <li><a href="#">My Blog</a></li>
+                                <li><a href="#">News feed</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Service</a></li>
+                         <li><a href="#">Search Result</a></li>
+                        
+                        
+                        
+                        <li><a href="#">Stock +</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                       
+                       <li><a href="#">About</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div><!-- end nav-menu -->
+            </nav><!-- end st-menu -->
+
+            <div class="st-content">
+
+                <div class="st-content-inner">
+                    <div id="page" class="hfeed site">
+
+                        <header id="header">
+                            <div id="st-trigger-effects" class="column">
+                                <button data-effect="st-effect-3" type="button" role="button" aria-label="Toggle Navigation" class="lines-button x">
+                                    <span class="lines"></span>
+                                </button>
+                            </div>
+                            <h1 class="logo">
+                                <a href="#">
+                                    OILUMEO
+                                    <img src="images/logo.png" alt="" title="OILUMEO">
+                                </a>
+                            </h1>
+                        </header>
+                    
+                        <nav id="vertical-nav">
+                            <ul>
+                                <li>
+                                    <a href="#intro" data-number="1">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Intro</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#instafeed" data-number="2">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Most-Recent</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#instafeed1" data-number="3">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Most-Liked</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#instafeed2" data-number="4">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Most-Commented</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#instafeed3" data-number="5">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Random</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#instafeed4" data-number="6">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">All</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="#credit" data-number="7">
+                                        <span class="vdot"></span>
+                                        <span class="vlabel">Site Credit</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <section id="intro" class="group carousel-section fullscreen background parallax">
+
+                            <!-- Header Carousel -->
+                            <div id="homeCarousel" class="carousel slide">
+
+                                <div class="flexslider">
+                                    <ul class="slides">
+
+                                        <li class="onscreen background parallax" style="background-image: url('images/assets/slide-3.jpg')" data-img-width="1600" data-img-height="1064" data-diff="150">
+                                            <div class="flex-caption">
+                                                <span class="animated fadeInUp">PHOTOGRAPHY TEMPLATE</span>
+                                                <h3 class="animated fadeInDown">Photography Landscape Section</h3>
+                                                <a href="#" class="togo animated flipInY">LEARN MORE</a>
+                                            </div>
+                                        </li>
+
+                                        <li class="onscreen background parallax" style="background-image: url('images/assets/slide-2.jpg')" data-img-width="1600" data-img-height="1064" data-diff="150">
+                                            <div class="flex-caption">
+                                                <span class="animated fadeInUp">PHOTOGRAPHY TEMPLATE</span>
+                                                <h3 class="animated fadeInDown">Photography Landscape Section</h3>
+                                                <a href="#" class="togo animated flipInY">LEARN MORE</a>
+                                            </div>
+                                        </li>
+
+                                        <li class="onscreen background parallax" style="background-image: url('images/assets/slide-1.jpg')" data-img-width="1600" data-img-height="1064" data-diff="150">
+                                            <div class="flex-caption">
+                                                <span class="animated fadeInUp">PHOTOGRAPHY TEMPLATE</span>
+                                                <h3 class="animated fadeInDown">Photography Object Section</h3>
+                                                <a href="#" class="togo animated flipInY">LEARN MORE</a>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div><!-- end flexslider -->
+                            </div><!-- end carousel -->
+                            <a href="#about" class="scroll-down cd-img-replace">scroll down</a>
+                        </section><!-- cd-section -->
+<center>
+<h1>Most Recent</h1>
+</center>
+                          <div class="row">
+<div id="instafeed" class="col-md-12 "></div>       
+</div>
+<h1>Most Liked</h1>
+ <div class="row">
+<div id="instafeed1" class="col-md-12"></div>       
+</div>
+<center>
+<h1>Most Commented</h1>
+</center>
+ <div class="row">
+<div id="instafeed2" class="col-md-12"></div>       
+</div>
+<h1>All</h1>
+
+<div class="row">
+<div id="instafeed3" class="col-md-12"></div>       
+</div>
+<h1>Random</h1>
+
+<div class="row">
+<div id="instafeed4" class="col-md-12"></div>       
+</div>
+
+</div>
+
+                        <section id="credit" class="group footer-section onscreen fullscreen background parallax">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="footer-inner">
+                                        <figure>
+                                            <img src="images/logo-bottom.png" alt="">
+                                        </figure>
+                                        <h2>PROFESSIONAL PHOTO GRAPHY</h2>
+                                        <span>Tell Your Story with Picture</span>
+
+                                        <div class="socmed">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-fw fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-behance"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-instagram"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-linkedin"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-pinterest"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-fw fa-google-plus"></i></a></li>
+                                            </ul>
+                                        </div><!-- end socmed -->
+
+                                        <div class="site-credit">
+                                            <p>copyright © 2017 aadelle. All Rights Reserved.</p>
+                                        </div>
+
+                                    </div>
+                                </div><!-- end row -->
+                            </div><!-- end container -->
+                        </section><!-- end section -->
+
+                    </div><!-- end #page -->
+                </div><!-- end st-content-inner -->
+            </div><!-- end st-content -->
+        </div><!-- end st-phuser -->
+    </div><!-- end #st-container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/vendor/jquery-2.1.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <script src="js/vendor/classie.js"></script>
+    <script src="js/vendor/sidebarEffects.js"></script>
+    <script src="js/main.js"></script>
+    
+    
+  </body>
+
+</html>

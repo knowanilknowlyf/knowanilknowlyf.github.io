@@ -1,7 +1,8 @@
-#header h2 {
-    display: none;
-}
-.d-none{
-        display: none;
-
+.wufoo .info h2 {
+    font-size: 160%;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+    display:none;
 }
